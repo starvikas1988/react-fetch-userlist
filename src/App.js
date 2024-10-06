@@ -2,32 +2,32 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 
 export default function App() {
-  const [users, setUsers] = useState([]); // Initialize state to store the users
+  const [users, setUsers] = useState([]); // State to store the users
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        // Await the fetch call to get the response
         const response = await fetch('https://randomuser.me/api/?results=10');
-        const data = await response.json(); // Parse the response JSON
-       // console.log(data);
+        const data = await response.json();
         
-        setUsers(data.results); // Assuming API response has 'results'
+        setUsers(data.results); // Assuming the API response has 'results'
       } catch (error) {
         console.error('Error fetching users:', error);
       }
     };
   
-    fetchUsers(); // Call the fetchUsers function on component mount
-  }, []); // Empty dependency array ensures it only runs once
+    fetchUsers(); // Fetch users when the component mounts
+  }, []); // Empty dependency array ensures this effect runs once on mount
 
   return (
     <div>
       <h1>Hello Vikas!</h1>
-      <p>User List</p>
+      <h2>User List</h2>
       <ul>
-        {users.map((user, index) => (
-          <li key={user.login.uuid}>{user.name.first} {user.name.last}</li> // Display first and last names
+        {users.map((user) => (
+          <li key={user.login.uuid}>
+            {user.name.first} {user.name.last}
+          </li>
         ))}
       </ul>
     </div>
