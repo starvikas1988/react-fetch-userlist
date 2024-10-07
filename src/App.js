@@ -4,21 +4,27 @@ import "./style.css";
 export default function App() {
   const [users, setUsers] = useState([]); // State to store the users
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('https://randomuser.me/api/?results=10');
-        const data = await response.json();
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await fetch('https://randomuser.me/api/?results=10');
+  //       const data = await response.json();
         
-        setUsers(data.results); // Assuming the API response has 'results'
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
+  //       setUsers(data.results); // Assuming the API response has 'results'
+  //     } catch (error) {
+  //       console.error('Error fetching users:', error);
+  //     }
+  //   };
   
-    fetchUsers(); // Fetch users when the component mounts
-  }, []); // Empty dependency array ensures this effect runs once on mount
+  //   fetchUsers(); // Fetch users when the component mounts
+  // }, []); // Empty dependency array ensures this effect runs once on mount
 
+  useEffect(()=>{
+    fetch('https://randomuser.me/api/?results=10')
+    .then((response)=> response.json())
+    .then(data => setUsers(data.results))
+    .catch(error => console.error('Error while fetching',error))
+  },[])
   return (
     <div>
       <h1>Hello Vikas!</h1>
